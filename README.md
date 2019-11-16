@@ -1,6 +1,6 @@
 # assignment-sunscrapers
 
-## Task Descrition
+## Task Description
 Data Warehouse Prototype Project
 Download Data
 
@@ -14,11 +14,7 @@ Please build a prototype of a production data pipeline that will feed an analysi
 
 For this section, please:
 
-    Create a data model / schema in a database or storage engine of your choice
-    Develop code that will persist the dataset into this storage system
-    Include any data validation routines that you think may be necessary
-    Use your choice of geospatial python package and create spatial analysis
-        Loan.csv file has addr_state. Please aggregate loan data for states and visualize it.
+> Create a data model / schema in a database or storage engine of your choice. Develop code that will persist the dataset into this storage system. Include any data validation routines that you think may be necessary. Use your choice of geospatial python package and create spatial analysis Loan.csv file has addr_state. Please aggregate loan data for states and visualize it.
 
 Prioritize simplicity in your data model and processing code. Explain your thought process.
 
@@ -33,20 +29,20 @@ Submit all code and documentation via GitHub. Please include all code files, out
 The Exploratory Data Analysis (EDA) part is achieved using of Google-hosted instance of Jupyter notebook. The notebook is available as a file:  `./Exploratory-Data-Analysis.ipynb`, which needs to be uploaded to [Google Colab](https://colab.google.com).
 For convinence, the datasets are hosted using Google Drive, but it is also possible to upload them directly without synching them with the Drive. In this case one has to edit a few lines in the notebook iself, and it is explained therein.
 
-### Viewing using Github
+#### Viewing using Github
 It is possible to view the EDA notebook directly using Github.
 However, sometimes the notebook does not render correctly when viewing it directly on Github, we are we are presenting a snapshot of the geospatial analysis here for confirmation:
 
 ![](./uszipmap.png).
 
-### Running locally
+#### Running locally
 To run the notebook locally, you need it activate a virtual environment and running an instance of the Jupyter noteook. Use the following commands:
 ```
-git clone <this-repo-url>
-python3 -m venv env
-source env/bin/activate
-pip install -r requirements.txt
-jupyter notebook
+$ git clone <this-repo-url>
+$ python3 -m venv env
+$ source env/bin/activate
+$ pip install -r requirements.txt
+$ jupyter notebook
 ```
 This will start an instance of the notebook on `localhost:8888`. 
 Use your browser to open the notebook and view it.
