@@ -19,9 +19,9 @@ We will be exploring Lending Club’s loan origination data from 2007-2015. Plea
 > Prioritize simplicity in your data model and processing code. Explain your thought process.
 
 ### Mechanics
-Use the tools, programming languages and frameworks that you are most comfortable with. We primarily use Jupyter, Python and SQL, but this is not a requirement.
+> Use the tools, programming languages and frameworks that you are most comfortable with. We primarily use Jupyter, Python and SQL, but this is not a requirement.
 
-Submit all code and documentation via GitHub. Please include all code files, outputs, and visualizations in the repository. Do not include any passwords or secrets in your code. Include a documentation file with your project. Please assume that your work will be shared with data engineers as well as data scientists and software engineers in a collaborative environment. 
+> Submit all code and documentation via GitHub. Please include all code files, outputs, and visualizations in the repository. Do not include any passwords or secrets in your code. Include a documentation file with your project. Please assume that your work will be shared with data engineers as well as data scientists and software engineers in a collaborative environment. 
 
 ## Solution
 ### Part 1: Exploratory Data Analysis
