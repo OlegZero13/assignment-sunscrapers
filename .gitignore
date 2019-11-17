@@ -1,6 +1,7 @@
 # Custom
 data/
 *.swp
+environ
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
