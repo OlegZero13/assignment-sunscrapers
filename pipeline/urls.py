@@ -6,4 +6,5 @@ app_name = 'pipeline'
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),
+    url(r'^borrower/(?P<member_id>[0-9]+)/$', views.borrower, name='borrower'),
 ]
