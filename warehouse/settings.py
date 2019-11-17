@@ -36,6 +36,7 @@ ALLOWED_HOSTS = [env('HOST')]
 # Application definition
 
 INSTALLED_APPS = [
+    'pipeline',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
