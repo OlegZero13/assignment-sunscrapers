@@ -24,51 +24,53 @@ class Borrowers_Validation:
                 raise ValidationError(f"'{f}' was not found in {keys}.\n")
 
     @classmethod
-    def validate_all_util(value):
+    def validate_all_util(cls, value):
         return np.clip(np.float(value), 0.0, 250.0) if value is not np.nan else 0.0
 
     @classmethod
-    def validate_annual_income(value):
+    def validate_annual_income(cls, value):
         return np.clip(np.float(value), 0.0, 1e7) if value is not np.nan else 0.0
 
     @classmethod
-    def validate_avg_cur_bal(value):
+    def validate_avg_cur_bal(cls, value):
         return np.clip(np.float(value), 0.0, 1e5) if value is not np.nan else 0.0
 
     @classmethod
-    def validate_dti(value):
+    def validate_dti(cls, value):
         return np.clip(np.float(value), 0.0, 100.0) if value is not np.nan else 0.0
 
     @classmethod
-    def validate_home_ownership(value):
-        choices = [c[0] for c in home_ownership_choices]
+    def validate_home_ownership(cls, value):
+        choices = [c[0] for c in home_ownership_choices()]
         if value.upper not in choices:
             return 'OTHER'
         return value.upper()
 
     @classmethod
-    def validate_address_state(value):
+    def validate_address_state(cls, value):
         choices = [c[0] for c in address_state_choices()]
         if value.upper() not in choices:
             raise ValidationError("The choice for 'state address' is not valid.")
         return value.upper()
 
     @classmethod
-    def validate_zip_code(value):
+    def validate_zip_code(cls, value):
         try:
             value = str(value)[:3]
             if (len(value) < 3) or (not value.isdigit()):
                 raise ValidationError
+            else:
+                return value
         except:
             raise ValidationError("Invalid zip code.")
 
     @classmethod
-    def validate_emp_title(value):
+    def validate_emp_title(cls, value):
         value = str(value) if value is not np.nan else ''
         value = value.lower().rstrip().lstrip()
         return ''.join(list(filter(lambda x: x in string.ascii_lowercase, value)))
 
     @classmethod
-    def validate_emp_length(value):
+    def validate_emp_length(cls, value):
         return np.clip(np.int(value), 0, 10)
 

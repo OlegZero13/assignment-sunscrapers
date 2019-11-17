@@ -19,6 +19,20 @@ def borrower(request, member_id):
     body = json.loads(request.body.decode('utf-8'))
     try:
         BV.check_fields(body)
+        borrower = Borrowers.objects.get_or_create(
+                pk              = None,
+                all_util        = BV.validate_all_util(body['all_util']),
+                annual_income   = BV.validate_annual_income(body['annual_income']),
+                avg_cur_bal     = BV.validate_avg_cur_bal(body['avg_cur_bal']),
+                dti             = BV.validate_dti(body['dti']),
+                home_ownership  = BV.validate_home_ownership(body['home_ownership']),
+                address_state   = BV.validate_address_state(body['address_state']),
+                zip_code        = BV.validate_zip_code(body['zip_code']),
+                emp_title       = BV.validate_emp_title(body['emp_title']),
+                emp_length      = BV.validate_emp_length(body['emp_length'])
+        )
+
+
     except ValidationError as e:
         return HttpResponse(e, status=400)
 
