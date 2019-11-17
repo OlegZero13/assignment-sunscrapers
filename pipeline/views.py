@@ -5,6 +5,7 @@ from django.forms.models import model_to_dict
 
 from .models import Borrowers, Loans
 from .validations import Borrowers_Validation as BV
+from .validations import Loans_Validation as LV
 
 import json
 
@@ -42,3 +43,32 @@ def borrower(request, member_id):
         except Borrowers.DoesNotExist:
             return HttpResponse(f"Borrower of pk={member_id} does not exist.\n", status=404)
     return JsonResponse(model_to_dict(borrower))
+
+@csrf_exempt
+def loan(request, loan_id):
+    if request.method == 'POST':
+        body = json.loads(request.body.decode('utf-8'))
+        try:
+            LV.check_fields(body)
+            loan = Loans.objects.update_or_create(
+                    pk              = int(loan_id),
+                    member_id       = LV.validate_member_id(body['member_id']),
+                    title           = LV.validate_title(body['title']),
+                    funded_amount   = LV.validate_funded_amount(body['funded_amount']),
+                    total_payment   = LV.validate_total_payment(body['total_payment']),
+                    grade           = LV.validate_grade(body['grade']),
+                    interest_rate   = LV.validate_interest_rate(body['interest_rate']),
+                    amount          = LV.validate_amount(body['amount']),
+                    status          = LV.validate_status(body['status']),
+                    meets_policy    = LV.validate_meets_policy(body['meets_policy']),
+                    term            = LV.validate_term(body['term'])
+            )
+        except ValidationError as e:
+            return HttpResponse(e, status=400)
+        return HttpResponse(f'Loan entry updated (pk={loan_id}).', status=201)
+    else:
+        try:
+            loan = Loans.objects.get(pk=loan_id)
+        except Loans.DoesNotExist:
+            return HttpResponse(f"Loan of pk={loan_id} does not exist.\n", status=404)
+    return JsonResponse(model_to_dict(loan))

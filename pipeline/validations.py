@@ -76,7 +76,7 @@ class Borrowers_Validation:
         return np.clip(np.int(value), 0, 10)
 
 
-class Loans_Validaton:
+class Loans_Validation:
 
     @classmethod
     def check_fields(cls, request_body):
