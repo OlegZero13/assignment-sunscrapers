@@ -5,11 +5,10 @@ from urllib import request
 import json
 
 
-import pdb
-
 DOMAIN = 'localhost:8000'
 DATAPATH = './data'
 DATAFILE = 'loans_tbl.csv'
+LIMIT = 200
 
 
 def upload(row):
@@ -41,7 +40,8 @@ if __name__ == '__main__':
         'loan_status':  'status',
     })
 
-    for i in range(200):
+    nrecords = LIMIT if LIMIT is not None else len(df)
+    for i in range(nrecords):
         row = df.iloc[i]
         upload(row)
     print ("DONE.")
