@@ -86,3 +86,7 @@ def batch(request, pk_from, pk_to):
     queryset = Loans.objects.filter(pk__gte=pk_from, pk__lte=pk_to).select_related('member_id')
     response = serializers.serialize(queryset=queryset, format='json')
     return JsonResponse({'batch': response})
+
+def count(request):
+    nrecords = Loans.objects.count()
+    return JsonResponse({'count': nrecords})
