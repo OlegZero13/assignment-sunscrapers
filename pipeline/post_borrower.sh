@@ -1,1 +1,1 @@
-curl http://localhost:8000/borrower/1/ -d '{"all_util": 100, "annual_income": 101, "avg_cur_bal": 102, "dti": 103, "home_ownership": "mine", "address_state": "CA", "zip_code": "12345", "emp_title": "framc", "emp_length": 11}'
+curl http://localhost:8000/borrower/1/ -d '{"all_util": 100, "annual_income": 101, "avg_cur_bal": 102, "dti": 103, "home_ownership": "mine", "address_state": "NY", "zip_code": "12345", "emp_title": "framc", "emp_length": 11}'

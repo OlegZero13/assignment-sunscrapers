@@ -73,6 +73,9 @@ class Borrowers_Validation:
 
     @classmethod
     def validate_emp_length(cls, value):
+        value = str(value)
+        value = ''.join(list(filter(lambda x: x.isdigit(), value)))
+        value = 0 if value == '' else value
         return np.clip(np.int(value), 0, 10)
 
 
