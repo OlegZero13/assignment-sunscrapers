@@ -1,0 +1,1 @@
+curl http://localhost:8000/loan/1/ -d '{"member_id": 1, "title": "Banoodle", "funded_amount": "128735", "total_payments": "120893120", "grade": "A1", "interest_rate": "90", "amount": "102937", "status": "lkjsd", "meets_policy": "1", "term": 36}'

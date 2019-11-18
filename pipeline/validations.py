@@ -51,7 +51,7 @@ class Borrowers_Validation:
     def validate_address_state(cls, value):
         choices = [c[0] for c in address_state_choices()]
         if value.upper() not in choices:
-            raise ValidationError("The choice for 'state address' is not valid.")
+            raise ValidationError("The choice for 'state address' is not valid.\n")
         return value.upper()
 
     @classmethod
@@ -63,7 +63,7 @@ class Borrowers_Validation:
             else:
                 return value
         except:
-            raise ValidationError("Invalid zip code.")
+            raise ValidationError("Invalid zip code.\n")
 
     @classmethod
     def validate_emp_title(cls, value):
@@ -81,8 +81,7 @@ class Loans_Validation:
     @classmethod
     def check_fields(cls, request_body):
         fields = set([f.name for f in Loans._meta.get_fields()])
-        fields.remove('loans')
-        fields.remove('member_id')
+        fields.remove('id')
     
         keys = set(request_body.keys())
 
@@ -106,14 +105,14 @@ class Loans_Validation:
         return np.clip(np.float(value), 0.0, 5e4)
 
     @classmethod
-    def validate_total_payment(cls, value):
+    def validate_total_payments(cls, value):
         return np.clip(np.float(value), 0.0, 1e5)
 
     @classmethod
     def validate_grade(cls, value):
         choices = [c[0] for c in grade_choices()]
         if value.upper() not in choices:
-            raise ValidationError(f"The {value} is not supported.")
+            raise ValidationError(f"The {value} is not supported.\n")
         return value.upper()
 
     @classmethod
@@ -137,6 +136,8 @@ class Loans_Validation:
 
     @classmethod
     def validate_term(cls, value):
-        if value not in term_choices():
-            raise ValidationError("The term choices supported are only 36 and 60 months.")
+        choices = [c[0] for c in term_choices()]
+        value = str(value)
+        if value not in choices:
+            raise ValidationError("The term choices supported are only 36 and 60 months.\n")
         return value

@@ -35,7 +35,7 @@ def borrower(request, member_id):
             )
         except ValidationError as e:
             return HttpResponse(e, status=400)
-        return HttpResponse(f'Borrower entry updated (pk={member_id}).', status=201)
+        return HttpResponse(f'Borrower entry updated (pk={member_id}).\n', status=201)
 
     else:
         try:
@@ -50,12 +50,14 @@ def loan(request, loan_id):
         body = json.loads(request.body.decode('utf-8'))
         try:
             LV.check_fields(body)
+            member_id = LV.validate_member_id(body['member_id'])
+            borrower = Borrowers.objects.get(pk=member_id)
             loan = Loans.objects.update_or_create(
                     pk              = int(loan_id),
-                    member_id       = LV.validate_member_id(body['member_id']),
+                    member_id       = borrower,
                     title           = LV.validate_title(body['title']),
                     funded_amount   = LV.validate_funded_amount(body['funded_amount']),
-                    total_payment   = LV.validate_total_payment(body['total_payment']),
+                    total_payments  = LV.validate_total_payments(body['total_payments']),
                     grade           = LV.validate_grade(body['grade']),
                     interest_rate   = LV.validate_interest_rate(body['interest_rate']),
                     amount          = LV.validate_amount(body['amount']),
@@ -65,7 +67,7 @@ def loan(request, loan_id):
             )
         except ValidationError as e:
             return HttpResponse(e, status=400)
-        return HttpResponse(f'Loan entry updated (pk={loan_id}).', status=201)
+        return HttpResponse(f'Loan entry updated (pk={loan_id}).\n', status=201)
     else:
         try:
             loan = Loans.objects.get(pk=loan_id)
