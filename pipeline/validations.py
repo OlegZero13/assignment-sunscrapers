@@ -129,9 +129,20 @@ class Loans_Validation:
     @classmethod
     def validate_status(cls, value):
         choices = [c[0] for c in status_choices()]
-        if value.upper() not in choices:
-            return 'DEFAULT'
-        return value.upper()
+        value = value.upper()
+        if 'CURRENT' in value:
+            value = 'CURRENT'
+        elif 'FULLY PAID' in value:
+            value = 'PAID'
+        elif 'GRACE' in value:
+            value = 'GRACE'
+        elif '31-120' in value:
+            value = 'LATE2'
+        elif '16-30' in value:
+            value = 'LATE1'
+        else:
+            value = 'DEFAULT'
+        return value
 
     @classmethod
     def validate_meets_policy(cls, value):
@@ -140,7 +151,7 @@ class Loans_Validation:
     @classmethod
     def validate_term(cls, value):
         choices = [c[0] for c in term_choices()]
-        value = str(value)
+        value = ''.join(list(filter(lambda x: x.isdigit(), str(value))))
         if value not in choices:
             raise ValidationError("The term choices supported are only 36 and 60 months.\n")
         return value

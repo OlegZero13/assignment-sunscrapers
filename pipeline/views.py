@@ -69,6 +69,8 @@ def loan(request, loan_id):
                 'meets_policy'    : LV.validate_meets_policy(body['meets_policy']),
                 'term'            : LV.validate_term(body['term'])
             })
+        except Borrowers.DoesNotExist:
+            return HttpResponse(f"Borrower of pk={member_id} does not exist.\n", status=404)
         except ValidationError as e:
             return HttpResponse(e, status=400)
         return HttpResponse(f'Loan entry updated (pk={loan_id}).\n', status=201)
