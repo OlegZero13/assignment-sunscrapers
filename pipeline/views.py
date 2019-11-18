@@ -2,6 +2,7 @@ from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt # !unsafe, but OK for prototype
 from django.core.exceptions import ValidationError
 from django.forms.models import model_to_dict
+from django.core import serializers
 
 from .models import Borrowers, Loans
 from .validations import Borrowers_Validation as BV
@@ -80,3 +81,8 @@ def loan(request, loan_id):
         except Loans.DoesNotExist:
             return HttpResponse(f"Loan of pk={loan_id} does not exist.\n", status=404)
     return JsonResponse(model_to_dict(loan))
+
+def batch(request, pk_from, pk_to):
+    queryset = Loans.objects.filter(pk__gte=pk_from, pk__lte=pk_to).select_related('member_id')
+    response = serializers.serialize(queryset=queryset, format='json')
+    return JsonResponse({'batch': response})
